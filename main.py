@@ -7,8 +7,16 @@
 
 import json
 
-length_of_one_square=3
-total_length=3
+#length_of_one_square=3
+#total_length=3
+value1 = input("Please enter length_of_one_square e.g. 3:\n")
+value2 = input("Please enter total_length e.g. 9:\n")
+
+length_of_one_square = int(value1)
+total_length = int(value2)
+
+choice = input("Enter 1 for create_list.\nEnter 2 for specifying Killer game values.:\n")
+choice = int(choice)
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -45,7 +53,7 @@ def do_whatever(index_list):
         #print ('res = ', res)
         temp_list = [length_of_one_square]
         index_list = temp_list + index_list
-        saveListToFile(index_list, 'sum_no_of_squares_list')
+        #saveListToFile(index_list, 'sum_no_of_squares_list')
         return print(index_list)
 
 def create_list(length_of_one_square, total_length):
@@ -151,7 +159,16 @@ if __name__ == '__main__':
     #possib(total, no_of_squares, l_combin=None)
     #possib(13, 3, l_combin=None)
     #print_hi('possib(total, no_of_squares, l_combin=None) =', possib(1, 1, l_combin=None))
-    create_list(length_of_one_square, total_length)
+    #create_list(length_of_one_square, total_length)
+
+    if choice == 1:
+        print(f'You entered {length_of_one_square} and {total_length} for create_list')
+        create_list(length_of_one_square, total_length)
+    elif choice == 2:
+        print(f'You entered {length_of_one_square} and {total_length} for Killer values')
+    else:
+        print("Wrong Choice, terminating the program.")
+
 #print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
