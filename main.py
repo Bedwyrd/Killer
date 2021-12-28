@@ -7,8 +7,6 @@
 
 import json
 
-#length_of_one_square=3
-#total_length=3
 value1 = input("Please enter length_of_one_square e.g. 3:\n")
 value2 = input("Please enter total_length e.g. 9:\n")
 
@@ -26,9 +24,12 @@ def saveListToFile(listname, pathtosave):
     with open(pathtosave, 'a') as f:
         f.write(json.dumps(listname) + "\n")
 
+def openFileToList(listname, pathtosave):
     # Now read the file back into a Python list object
-    #with open('test.txt', 'r') as f:
-    #    a = json.loads(f.read())
+    with open(pathtosave, 'r') as f:
+        listname = [json.loads(line) for line in f]
+    #print('listname = ', listname)
+    return listname
 
 def for_recursive(number_of_loops, range_list, execute_function, current_index=0, iter_list = []):
     #print('number_of_loops = ', number_of_loops, 'range_list = ', range_list)
@@ -57,8 +58,6 @@ def do_whatever(index_list):
         return print(index_list)
 
 def create_list(length_of_one_square, total_length):
-    import json
-
     last_number = length_of_one_square**2
     total_in_one_square = 0
     for x in range(1, length_of_one_square**2+1):
@@ -149,23 +148,20 @@ def create_list(length_of_one_square, total_length):
                                 range(1, length_of_one_square**2),
                                 range(1, length_of_one_square**2+1)], execute_function = do_whatever, number_of_loops = number_of_loops_lv)
 
-    """
+def pop_game(length_of_one_square, total_length):
+    # saveListToFile(index_list, 'sum_no_of_squares_list')
+    index_list_f = []
+    index_list_f = openFileToList(index_list_f, 'sum_no_of_squares_list')
+    print('index_list_f = ', index_list_f)
 
 # Press the green button in the gutter to run the script.
-#if __name__ == '__main__':
-#    print_hi('PyCharm')
-    """
 if __name__ == '__main__':
-    #possib(total, no_of_squares, l_combin=None)
-    #possib(13, 3, l_combin=None)
-    #print_hi('possib(total, no_of_squares, l_combin=None) =', possib(1, 1, l_combin=None))
-    #create_list(length_of_one_square, total_length)
-
     if choice == 1:
-        print(f'You entered {length_of_one_square} and {total_length} for create_list')
+        print(f'You entered length_of_one_square = {length_of_one_square} and total_length = {total_length} for create_list')
         create_list(length_of_one_square, total_length)
     elif choice == 2:
-        print(f'You entered {length_of_one_square} and {total_length} for Killer values')
+        print(f'You entered length_of_one_square = {length_of_one_square} and total_length = {total_length} for Killer values')
+        pop_game(length_of_one_square, total_length)
     else:
         print("Wrong Choice, terminating the program.")
 
