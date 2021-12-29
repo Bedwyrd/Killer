@@ -2,6 +2,10 @@
 
 # The Github stuff was done as per
 # https://medium.com/analytics-vidhya/how-to-share-the-pycharm-project-on-github-de837063c12
+# Sudoku:
+# https://www.killersudokuonline.com/tips.html
+# https://sudoku.com/killer/easy/
+# https://www.sudokuwiki.org/killersudoku.htm
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
