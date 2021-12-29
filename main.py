@@ -184,6 +184,15 @@ def pop_game(length_of_one_square, total_length):
     print('index_list_f = ', index_list_f)
     l_f_length_of_one_square = [x for x in index_list_f if x[0] == length_of_one_square]
     print('l_f_length_of_one_square = ', l_f_length_of_one_square)
+    l_f_caged = openFileToList('caged')
+    print('l_f_caged = ', l_f_caged)
+    # To initialise all possibilities of the individual squares
+    l_possibilities = []
+    for x in l_f_caged:
+        for y in l_f_length_of_one_square:
+            if y[1] == x[3] and y[2] == x[4]:
+                l_possibilities.append(x + y[3:])
+    print('l_possibilities = ', l_possibilities)
 
 
 # Press the green button in the gutter to run the script.
