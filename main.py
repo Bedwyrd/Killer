@@ -11,6 +11,10 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 import json
+from tkinter import *
+
+# For tkinter
+root = Tk()
 
 value1 = input("Please enter length_of_one_square e.g. 3:\n")
 value2 = input("Please enter total_length e.g. 9:\n")
@@ -193,6 +197,13 @@ def pop_game(length_of_one_square, total_length):
             if y[1] == x[3] and y[2] == x[4]:
                 l_possibilities.append(x + y[3:])
     print('l_possibilities = ', l_possibilities)
+    #tkinter grids
+    myLabel00 = Label(root, text="00 grid")
+    myLabel01 = Label(root, text="01 grid")
+    myLabel10 = Label(root, text="10 grid")
+    myLabel00.grid(row=0, column=0)
+    myLabel01.grid(row=0, column=1)
+    myLabel10.grid(row=1, column=0)
 
 
 # Press the green button in the gutter to run the script.
