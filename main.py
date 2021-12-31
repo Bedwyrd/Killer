@@ -11,8 +11,10 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 import json
-from tkinter import *
+#from tkinter import *
 #import tkinter as tk
+#from future.moves import tkinter
+import TkinterExtensions
 
 # For tkinter
 #tkinter.Tcl().eval('info patchlevel')
