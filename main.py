@@ -12,9 +12,12 @@
 
 import json
 from tkinter import *
+#import tkinter as tk
 
 # For tkinter
-root = Tk()
+#tkinter.Tcl().eval('info patchlevel')
+#tk._test()
+#root = Tk()
 
 value1 = input("Please enter length_of_one_square e.g. 3:\n")
 value2 = input("Please enter total_length e.g. 9:\n")
