@@ -10,16 +10,33 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
+import sys
+print('sys.path1 = ', sys.path)
+sys.path.append('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter')
+print('sys.path2 = ', sys.path)
+print('sys.path[0] = ', sys.path[0])
+print('sys.path[1] = ', sys.path[1])
+sys.path[0] = '/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter'
+print('sys.path[0] = ', sys.path[0])
+import importlib
+#from importlib import import_module
+#tkinter = importlib.import_module('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter', "tkinter")
+#import_module('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3\.7/site-packages/future/moves/tkinter')
+
 import json
-#from tkinter import *
+from tkinter import *
 #import tkinter as tk
 #from future.moves import tkinter
-import TkinterExtensions
+#import TkinterExtensions
+#import tkinter
+#from Users.bedwyrd.PycharmProjects.Killer.venv.lib.python3.7.site-packages.future.moves.tkinter import *
+# /Users/bedwyrd/PycharmProjects/Killer
+# ./PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter
 
 # For tkinter
 #tkinter.Tcl().eval('info patchlevel')
 #tk._test()
-#root = Tk()
+root = Tk()
 
 value1 = input("Please enter length_of_one_square e.g. 3:\n")
 value2 = input("Please enter total_length e.g. 9:\n")
@@ -205,10 +222,14 @@ def pop_game(length_of_one_square, total_length):
     #tkinter grids
     myLabel00 = Label(root, text="00 grid")
     myLabel01 = Label(root, text="01 grid")
-    myLabel10 = Label(root, text="10 grid")
+    myLabel10 = Label(root, text="10 grid xxxxxxx")
+    myLabel11 = Label(root, text="11 grid")
     myLabel00.grid(row=0, column=0)
     myLabel01.grid(row=0, column=1)
     myLabel10.grid(row=1, column=0)
+    myLabel11.grid(row=1, column=1)
+
+    root.mainloop()
 
 
 # Press the green button in the gutter to run the script.
