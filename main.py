@@ -241,6 +241,36 @@ def pop_game(length_of_one_square, total_length):
     print('l_possibilities = ', l_possibilities)
     display_grid(l_possibilities)
 
+    l_possibilities_sort_cage_no = l_possibilities
+    l_possibilities_sort_cage_no.sort(key=lambda i: i[2])
+    print(l_possibilities_sort_cage_no)
+
+    # De-duplicate cage numbers
+    l_cage_nos = list(set(l_possibilities_sort_cage_no[2]))
+    print('l_cage_nos = ', l_cage_nos)
+    for cage_no_squares in l_cage_nos:
+        if cage_fully_in_nonet(cage_no_squares) and one_row_for_all_cage_squares(cage_no_squares):
+            delete_all_values_excluding_cage_in_nonet(cage_no_squares)
+
+        if cage_only_horizontal(cage_no_squares) and one_row_for_all_cage_squares(cage_no_squares):
+            delete_all_values_excluding_cage_in_horizontal(cage_no_squares)
+
+        if cage_only_vertical(cage_no_squares) and one_row_for_all_cage_squares(cage_no_squares):
+            delete_all_values_excluding_cage_in_vertical(cage_no_squares)
+
+    l_possibilities_sort_square_no = l_possibilities
+    l_possibilities_sort_square_no.sort(key=lambda i: (i[0], i[1]))
+    print(l_possibilities_sort_square_no)
+
+    # De-duplicate square numbers
+    l_square_nos = list(set(l_possibilities_sort_square_no[0,1]))
+    print('l_square_nos = ', l_square_nos)
+    for all_squares in l_square_nos:
+        if one_value_in_square[0,1] and one_row_for_this_square[0,1]:
+            delete_all_values_excluding_square_in_nonet(all_squares[0,1])
+            delete_all_values_excluding_horizontal_in_nonet(all_squares[0, 1])
+            delete_all_values_excluding_vertical_in_nonet(all_squares[0, 1])
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
