@@ -12,13 +12,13 @@
 
 import sys
 print('sys.path1 = ', sys.path)
-sys.path.append('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter')
-print('sys.path2 = ', sys.path)
-print('sys.path[0] = ', sys.path[0])
-print('sys.path[1] = ', sys.path[1])
-sys.path[0] = '/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter'
-print('sys.path[0] = ', sys.path[0])
-import importlib
+#sys.path.append('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter')
+#print('sys.path2 = ', sys.path)
+#print('sys.path[0] = ', sys.path[0])
+#print('sys.path[1] = ', sys.path[1])
+#sys.path[0] = '/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter'
+#print('sys.path[0] = ', sys.path[0])
+#import importlib
 #from importlib import import_module
 #tkinter = importlib.import_module('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter', "tkinter")
 #import_module('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3\.7/site-packages/future/moves/tkinter')
@@ -203,6 +203,26 @@ def create_list(length_of_one_square):
                               range(1, last_number + 1)], execute_function=do_whatever,
                   number_of_loops=number_of_loops_lv)
 
+def display_grid(l_possibilities):
+    #tkinter grids
+    prev_record = [-99, -99]
+    cum_record = ''
+    for n_grid in l_possibilities:
+        # print('n_grid = ', n_grid)
+        # print('prev_record[0] = ', prev_record[0])
+        # print('prev_record[1] = ', prev_record[1])
+        if n_grid[0] == prev_record[0] and n_grid[1] == prev_record[1]:
+            cum_record = str(cum_record) + '\n' + str(n_grid)
+            myLabel = Label(root, text=cum_record)
+            print('cum_record = ', cum_record)
+        else:
+            cum_record = str(n_grid)
+            myLabel = Label(root, text=cum_record)
+            print('cum_record = ', cum_record)
+
+        myLabel.grid(row=n_grid[0], column=n_grid[1])
+        prev_record = n_grid
+    root.mainloop()
 
 def pop_game(length_of_one_square, total_length):
     # saveListToFile(index_list, 'sum_no_of_squares_list')
@@ -219,17 +239,7 @@ def pop_game(length_of_one_square, total_length):
             if y[1] == x[3] and y[2] == x[4]:
                 l_possibilities.append(x + y[3:])
     print('l_possibilities = ', l_possibilities)
-    #tkinter grids
-    myLabel00 = Label(root, text="00 grid")
-    myLabel01 = Label(root, text="01 grid")
-    myLabel10 = Label(root, text="10 grid xxxxxxx")
-    myLabel11 = Label(root, text="11 grid")
-    myLabel00.grid(row=0, column=0)
-    myLabel01.grid(row=0, column=1)
-    myLabel10.grid(row=1, column=0)
-    myLabel11.grid(row=1, column=1)
-
-    root.mainloop()
+    display_grid(l_possibilities)
 
 
 # Press the green button in the gutter to run the script.
