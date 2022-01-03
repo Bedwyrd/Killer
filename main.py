@@ -207,13 +207,12 @@ def display_grid(l_possibilities):
         prev_record = n_grid
     root.mainloop()
 
-def cage_no_records(cage_no_squares, l_possibilities)
+def cage_no_records(cage_no_squares, l_possibilities):
     l_temp_cage_no_squares = []
     for l_possibility in l_possibilities:
         if l_possibility[2] == cage_no_squares:
             l_temp_cage_no_squares.append(l_possibility)
     return l_temp_cage_no_squares
-
 
 def cage_fully_in_nonet(cage_no_squares, l_possibilities):
     #l_temp_cage_no_squares = [sub_list[2] for sub_list in l_possibilities]
@@ -234,6 +233,35 @@ def cage_fully_in_nonet(cage_no_squares, l_possibilities):
 
 def one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
     l_temp_cage_no_squares = cage_no_records(cage_no_squares, l_possibilities)
+    l_temp_square_nos = [(sub_list[0], sub_list[1]) for sub_list in l_temp_cage_no_squares]
+    print('l_temp_square_nos = ', l_temp_square_nos)
+    a_set = set(l_temp_square_nos)
+    print('a_set = ', a_set)
+    if len(a_set) == len(l_temp_square_nos):
+        print('True')
+        return True
+    else:
+        print('False')
+        return False
+
+def delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities):
+    l_temp_cage_no_squares = cage_no_records(cage_no_squares, l_possibilities)
+    l_all_nos_in_cage = [tuple(sub_list[5:]) for sub_list in l_temp_cage_no_squares]
+    print('l_all_nos_in_cage = ', l_all_nos_in_cage)
+    a_set = set(l_all_nos_in_cage)
+    print('a_set = ', a_set)
+    l_temp_nonet_no = [(sub_list[0]//length_of_one_square, sub_list[1]//length_of_one_square) for sub_list in l_temp_cage_no_squares]
+    print('l_temp_nonet_no = ', l_temp_nonet_no)
+    #l_temp_nonet_no = l_temp_cage_no_squares_2[0]//length_of_one_square #, l_temp_cage_no_squares_2[0]//length_of_one_square
+    a_set = set(l_temp_nonet_no)
+    l_a_set = list(a_set)
+    print('l_a_set = ', l_a_set)
+    print('l_a_set[0][0] = ', l_a_set[0][0])
+    print('l_a_set[0][1] = ', l_a_set[0][1])
+    l_nonet_squares = l_possibilities[int(l_a_set[0][0])*length_of_one_square:int(l_a_set[0][0]+1)*length_of_one_square, int(l_a_set[0][1])*length_of_one_square:int(l_a_set[0][1]+1)*length_of_one_square]
+    print('l_nonet_squares = ', l_nonet_squares)
+    #for l_temp_cage_no_square in l_temp_cage_no_squares:
+
 
 def pop_game(length_of_one_square, total_length):
     # saveListToFile(index_list, 'sum_no_of_squares_list')
@@ -263,8 +291,9 @@ def pop_game(length_of_one_square, total_length):
     l_cage_nos = list(set(l_cage_nos_temp))
     print('l_cage_nos = ', l_cage_nos)
     for cage_no_squares in l_cage_nos:
-        if cage_fully_in_nonet(cage_no_squares, l_possibilities): # and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
-            #    delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities)
+        if cage_fully_in_nonet(cage_no_squares, l_possibilities) and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
+            delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities)
+            print('In delete_all_values_excluding_cage_in_nonet')
             pass
 
         #if cage_only_horizontal(cage_no_squares, l_possibilities) and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
