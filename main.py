@@ -12,26 +12,9 @@
 
 import sys
 print('sys.path1 = ', sys.path)
-#sys.path.append('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter')
-#print('sys.path2 = ', sys.path)
-#print('sys.path[0] = ', sys.path[0])
-#print('sys.path[1] = ', sys.path[1])
-#sys.path[0] = '/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter'
-#print('sys.path[0] = ', sys.path[0])
-#import importlib
-#from importlib import import_module
-#tkinter = importlib.import_module('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter', "tkinter")
-#import_module('/Users/bedwyrd/PycharmProjects/Killer/venv/lib/python3\.7/site-packages/future/moves/tkinter')
 
 import json
 from tkinter import *
-#import tkinter as tk
-#from future.moves import tkinter
-#import TkinterExtensions
-#import tkinter
-#from Users.bedwyrd.PycharmProjects.Killer.venv.lib.python3.7.site-packages.future.moves.tkinter import *
-# /Users/bedwyrd/PycharmProjects/Killer
-# ./PycharmProjects/Killer/venv/lib/python3.7/site-packages/future/moves/tkinter
 
 # For tkinter
 #tkinter.Tcl().eval('info patchlevel')
@@ -108,8 +91,8 @@ def create_list(length_of_one_square):
     for_recursive(range_list=[range(sum(range(1, number_of_loops_lv - 1)),
                                     sum(range(last_number + 3 - number_of_loops_lv, last_number + 1)) + 1),
                               range(number_of_loops_lv - 2, number_of_loops_lv - 1),
-                              range(1, last_number + 1)],
-                  execute_function=do_whatever, number_of_loops=number_of_loops_lv)
+                              range(1, last_number + 1)], execute_function=do_whatever,
+                  number_of_loops=number_of_loops_lv)
     number_of_loops_lv = 4
 
     for_recursive(range_list=[range(sum(range(1, number_of_loops_lv - 1)),
@@ -224,6 +207,34 @@ def display_grid(l_possibilities):
         prev_record = n_grid
     root.mainloop()
 
+def cage_no_records(cage_no_squares, l_possibilities)
+    l_temp_cage_no_squares = []
+    for l_possibility in l_possibilities:
+        if l_possibility[2] == cage_no_squares:
+            l_temp_cage_no_squares.append(l_possibility)
+    return l_temp_cage_no_squares
+
+
+def cage_fully_in_nonet(cage_no_squares, l_possibilities):
+    #l_temp_cage_no_squares = [sub_list[2] for sub_list in l_possibilities]
+    l_temp_cage_no_squares = cage_no_records(cage_no_squares, l_possibilities)
+    print('l_temp_cage_no_squares = ', l_temp_cage_no_squares)
+    # l_temp_cage_no_squares_2 = [sub_list[2] for sub_list in l_temp_cage_no_squares]
+    #l_temp_cage_no_squares_2 = [(sub_list[0], sub_list[1]) for sub_list in l_temp_cage_no_squares]
+    l_temp_nonet_no = [(sub_list[0]//length_of_one_square, sub_list[1]//length_of_one_square) for sub_list in l_temp_cage_no_squares]
+    print('l_temp_nonet_no = ', l_temp_nonet_no)
+    #l_temp_nonet_no = l_temp_cage_no_squares_2[0]//length_of_one_square #, l_temp_cage_no_squares_2[0]//length_of_one_square
+    a_set = set(l_temp_nonet_no)
+    if len(a_set) > 1:
+        print('False')
+        return False
+    else:
+        print('True')
+        return True
+
+def one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
+    l_temp_cage_no_squares = cage_no_records(cage_no_squares, l_possibilities)
+
 def pop_game(length_of_one_square, total_length):
     # saveListToFile(index_list, 'sum_no_of_squares_list')
     index_list_f = openFileToList('sum_no_of_squares_list')
@@ -252,24 +263,22 @@ def pop_game(length_of_one_square, total_length):
     l_cage_nos = list(set(l_cage_nos_temp))
     print('l_cage_nos = ', l_cage_nos)
     for cage_no_squares in l_cage_nos:
-        #if cage_fully_in_nonet(cage_no_squares) and one_row_for_all_cage_squares(cage_no_squares):
-        #    delete_all_values_excluding_cage_in_nonet(cage_no_squares)
+        if cage_fully_in_nonet(cage_no_squares, l_possibilities): # and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
+            #    delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities)
+            pass
+
+        #if cage_only_horizontal(cage_no_squares, l_possibilities) and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
+        #    delete_all_values_excluding_cage_in_horizontal(cage_no_squares, l_possibilities)
         pass
 
-        #if cage_only_horizontal(cage_no_squares) and one_row_for_all_cage_squares(cage_no_squares):
-        #    delete_all_values_excluding_cage_in_horizontal(cage_no_squares)
-        pass
-
-        #if cage_only_vertical(cage_no_squares) and one_row_for_all_cage_squares(cage_no_squares):
-        #    delete_all_values_excluding_cage_in_vertical(cage_no_squares)
+        #if cage_only_vertical(cage_no_squares, l_possibilities) and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
+        #    delete_all_values_excluding_cage_in_vertical(cage_no_squares, l_possibilities)
         pass
 
     l_possibilities_sort_square_no = l_possibilities
     l_possibilities_sort_square_no.sort(key=lambda i: (i[0], i[1]))
     print('l_possibilities_sort_square_no = ', l_possibilities_sort_square_no)
     # De-duplicate square numbers
-    #tu_possibilities_sort_square_no = tuple(l_possibilities_sort_square_no)
-    #l_square_nos = list(set(tu_possibilities_sort_square_no(0,1)))
     l_square_nos_temp = [(sub_list[0], sub_list[1]) for sub_list in l_possibilities_sort_square_no]
     print('l_square_nos_temp = ', l_square_nos_temp)
     l_square_nos = list(set(l_square_nos_temp))
