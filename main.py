@@ -218,11 +218,8 @@ def cage_fully_in_nonet(cage_no_squares, l_possibilities):
     #l_temp_cage_no_squares = [sub_list[2] for sub_list in l_possibilities]
     l_temp_cage_no_squares = cage_no_records(cage_no_squares, l_possibilities)
     print('l_temp_cage_no_squares = ', l_temp_cage_no_squares)
-    # l_temp_cage_no_squares_2 = [sub_list[2] for sub_list in l_temp_cage_no_squares]
-    #l_temp_cage_no_squares_2 = [(sub_list[0], sub_list[1]) for sub_list in l_temp_cage_no_squares]
     l_temp_nonet_no = [(sub_list[0]//length_of_one_square, sub_list[1]//length_of_one_square) for sub_list in l_temp_cage_no_squares]
     print('l_temp_nonet_no = ', l_temp_nonet_no)
-    #l_temp_nonet_no = l_temp_cage_no_squares_2[0]//length_of_one_square #, l_temp_cage_no_squares_2[0]//length_of_one_square
     a_set = set(l_temp_nonet_no)
     if len(a_set) > 1:
         print('False')
@@ -248,8 +245,11 @@ def delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities):
     l_temp_cage_no_squares = cage_no_records(cage_no_squares, l_possibilities)
     l_all_nos_in_cage = [tuple(sub_list[5:]) for sub_list in l_temp_cage_no_squares]
     print('l_all_nos_in_cage = ', l_all_nos_in_cage)
-    a_set = set(l_all_nos_in_cage)
-    print('a_set = ', a_set)
+    s_all_nos_in_cage = set(l_all_nos_in_cage)
+    print('s_all_nos_in_cage = ', s_all_nos_in_cage)
+    #l_all_nos_in_cage_de_dup = list(s_all_nos_in_cage)
+    l_all_nos_in_cage_de_dup = [list(x) for x in s_all_nos_in_cage]
+    print('l_all_nos_in_cage_de_dup = ', l_all_nos_in_cage_de_dup)
     l_temp_nonet_no = [(sub_list[0]//length_of_one_square, sub_list[1]//length_of_one_square) for sub_list in l_temp_cage_no_squares]
     print('l_temp_nonet_no = ', l_temp_nonet_no)
     #l_temp_nonet_no = l_temp_cage_no_squares_2[0]//length_of_one_square #, l_temp_cage_no_squares_2[0]//length_of_one_square
@@ -258,9 +258,31 @@ def delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities):
     print('l_a_set = ', l_a_set)
     print('l_a_set[0][0] = ', l_a_set[0][0])
     print('l_a_set[0][1] = ', l_a_set[0][1])
-    l_nonet_squares = l_possibilities[int(l_a_set[0][0])*length_of_one_square:int(l_a_set[0][0]+1)*length_of_one_square, int(l_a_set[0][1])*length_of_one_square:int(l_a_set[0][1]+1)*length_of_one_square]
-    print('l_nonet_squares = ', l_nonet_squares)
-    #for l_temp_cage_no_square in l_temp_cage_no_squares:
+    start_row = l_a_set[0][0] * length_of_one_square
+    end_row = int(l_a_set[0][0]+1)*length_of_one_square-1
+    start_column = l_a_set[0][1]*length_of_one_square
+    end_column = int(l_a_set[0][1]+1)*length_of_one_square-1
+    print('start_row = ', start_row)
+    print('end_row = ', end_row)
+    print('start_column = ', start_column)
+    print('end_column = ', end_column)
+    l_temp_squares_in_nonet = []
+    for l_nonet_squares in l_possibilities:
+        if l_nonet_squares[0] >= start_row and l_nonet_squares[0] <= end_row and l_nonet_squares[1] >= start_column and l_nonet_squares[1] <= end_column:
+            l_temp_squares_in_nonet.append(l_nonet_squares)
+    print('l_temp_squares_in_nonet = ', l_temp_squares_in_nonet)
+    t_temp_squares_in_nonet = [tuple(x) for x in l_temp_squares_in_nonet]
+    print('t_temp_squares_in_nonet = ', t_temp_squares_in_nonet)
+    s_temp_squares_in_nonet = set(t_temp_squares_in_nonet)
+    t_temp_cage_no_squares = [tuple(x) for x in l_temp_cage_no_squares]
+    s_temp_cage_no_squares = set(t_temp_cage_no_squares)
+    print('s_temp_cage_no_squares = ', s_temp_cage_no_squares)
+    s_temp_squares_in_nonet_minus_cage = s_temp_squares_in_nonet - s_temp_cage_no_squares
+    #l_temp_squares_in_nonet_minus_cage = list(s_temp_squares_in_nonet_minus_cage)
+    l_temp_squares_in_nonet_minus_cage = [list(x) for x in s_temp_squares_in_nonet_minus_cage]
+    print('l_temp_squares_in_nonet_minus_cage = ', l_temp_squares_in_nonet_minus_cage)
+    for x_number in l_all_nos_in_cage_de_dup:
+        for x_possibilities in l_possibilities:
 
 
 def pop_game(length_of_one_square, total_length):
