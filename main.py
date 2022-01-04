@@ -15,11 +15,12 @@ import sys
 import json
 from tkinter import *
 import copy
+#from iteration_utilities import deepflatten
+#import more_itertools
 
 # For tkinter
 #tkinter.Tcl().eval('info patchlevel')
 #tk._test()
-root = Tk()
 
 value1 = input("Please enter length_of_one_square e.g. 3:\n")
 value2 = input("Please enter total_length e.g. 9:\n")
@@ -188,6 +189,7 @@ def create_list(length_of_one_square):
                   number_of_loops=number_of_loops_lv)
 
 def display_grid(l_possibilities):
+    root = Tk()
     #tkinter grids
     prev_record = [-99, -99]
     cum_record = ''
@@ -250,6 +252,16 @@ def delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities):
     print('s_all_nos_in_cage = ', s_all_nos_in_cage)
     #l_all_nos_in_cage_de_dup = list(s_all_nos_in_cage)
     l_all_nos_in_cage_de_dup = [list(x) for x in s_all_nos_in_cage]
+    #list(deepflatten(l_all_nos_in_cage_de_dup))
+    #list(more_itertools.flatten(l_all_nos_in_cage_de_dup))
+    #sum(l_all_nos_in_cage_de_dup, [])
+    #l_all_nos_in_cage_de_dup = tuple(l_all_nos_in_cage_de_dup)
+    #l_all_nos_in_cage_de_dup = [tuple(x) for x in l_all_nos_in_cage_de_dup]
+    #l_all_nos_in_cage_de_dup = [1, 3]
+    #list(zip(*l_all_nos_in_cage_de_dup)[0])
+    #[y for x in l_all_nos_in_cage_de_dup for y in x]
+    l_all_nos_in_cage_de_dup = [*l_all_nos_in_cage_de_dup[0]]
+    print('*l_all_nos_in_cage_de_dup = ', *l_all_nos_in_cage_de_dup)
     print('l_all_nos_in_cage_de_dup = ', l_all_nos_in_cage_de_dup)
     l_temp_nonet_no = [(sub_list[0]//length_of_one_square, sub_list[1]//length_of_one_square) for sub_list in l_temp_cage_no_squares]
     print('l_temp_nonet_no = ', l_temp_nonet_no)
@@ -284,14 +296,18 @@ def delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities):
     print('l_temp_squares_in_nonet_minus_cage = ', l_temp_squares_in_nonet_minus_cage)
     l_possibilities_latest = copy.deepcopy(l_possibilities)
     for x_number in l_all_nos_in_cage_de_dup:
+        print('x_number1 = ', x_number)
         for x_possibility_latest in l_possibilities_latest:
             for x_temp_squares_in_nonet_minus_cage in l_temp_squares_in_nonet_minus_cage:
                 if x_temp_squares_in_nonet_minus_cage[:] == x_possibility_latest[:]:
                     #x_possibility_latest[5:].remove(x_number)
                     try:
                         print('x_possibility_latest[5:] = ', x_possibility_latest[5:])
-                        x_possibility_latest[5:].remove(x_number)
-                        print('x_temp_squares_in_nonet_minus_cage = ', x_temp_squares_in_nonet_minus_cage,
+                        print('x_possibility_latest.index(x_number, 5) = ', x_possibility_latest.index(x_number, 5))
+                        #x_possibility_latest[5:].index(x_number)
+                        del x_possibility_latest[x_possibility_latest.index(x_number, 5)]
+                        #x_possibility_latest.remove(x_number)
+                        print('x_temp_squares_in_nonet_minus_cage1 = ', x_temp_squares_in_nonet_minus_cage,
                               'x_possibility_latest = ', x_possibility_latest)
                     except:
                         print('x_number = ', x_number)
@@ -316,6 +332,8 @@ def delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities):
     #print(type(l_temp_squares_in_nonet_minus_cage))
     #print(type(l_possibilities))
     #print('l_possibilities_new = ', l_possibilities_new)
+
+    return l_possibilities_latest
 
 
 def pop_game(length_of_one_square, total_length):
@@ -347,7 +365,7 @@ def pop_game(length_of_one_square, total_length):
     print('l_cage_nos = ', l_cage_nos)
     for cage_no_squares in l_cage_nos:
         if cage_fully_in_nonet(cage_no_squares, l_possibilities) and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
-            delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities)
+            l_possibilities_latest = delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities)
             print('In delete_all_values_excluding_cage_in_nonet')
             pass
 
@@ -374,6 +392,8 @@ def pop_game(length_of_one_square, total_length):
         #    delete_all_values_excluding_horizontal_in_nonet(all_squares[0, 1])
         #    delete_all_values_excluding_vertical_in_nonet(all_squares[0, 1])
         pass
+
+    display_grid(l_possibilities_latest)
 
 
 # Press the green button in the gutter to run the script.
