@@ -348,9 +348,9 @@ def delete_all_values_excluding_cage_in_horizontal(cage_no_squares, l_possibilit
     a_set = set(l_temp_horizontal)
     l_a_set = list(a_set)
     print('l_a_set = ', l_a_set)
-    print('l_a_set[0][0] = ', l_a_set[0][0])
-    print('l_a_set[0][1] = ', l_a_set[0][1])
-    start_row = l_a_set[0][0]
+    print('l_a_set[0] = ', l_a_set[0])
+    print('l_a_set[0] = ', l_a_set[0])
+    start_row = l_a_set[0]
     #end_row = int(l_a_set[0][0]+1)*length_of_one_square-1
     #start_column = l_a_set[0][1]*length_of_one_square
     #end_column = int(l_a_set[0][1]+1)*length_of_one_square-1
