@@ -248,9 +248,9 @@ def cage_only_horizontal(cage_no_squares, l_possibilities):
     #l_temp_cage_no_squares = [sub_list[2] for sub_list in l_possibilities]
     l_temp_cage_no_squares = cage_no_records(cage_no_squares, l_possibilities)
     print('l_temp_cage_no_squares = ', l_temp_cage_no_squares)
-    l_temp_nonet_no = [(sub_list[1]//length_of_one_square, sub_list[2]//length_of_one_square) for sub_list in l_temp_cage_no_squares]
-    print('l_temp_nonet_no = ', l_temp_nonet_no)
-    a_set = set(l_temp_nonet_no)
+    l_temp_horizontal = [(sub_list[1]) for sub_list in l_temp_cage_no_squares]
+    print('l_temp_nonet_no = ', l_temp_horizontal)
+    a_set = set(l_temp_horizontal)
     if len(a_set) > 1:
         print('False')
         return False
@@ -330,6 +330,79 @@ def delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities, 
     #[[89, 111, 117, None], [104, 97, 118, 101, None], [109, 97, 100, 101, None], [109, 121, None], [115, 111, 117, 108, None]]
     return l_possibilities_latest
 
+def delete_all_values_excluding_cage_in_horizontal(cage_no_squares, l_possibilities, l_possibilities_latest):
+    l_temp_cage_no_squares = cage_no_records(cage_no_squares, l_possibilities)
+    l_all_nos_in_cage = [tuple(sub_list[6:]) for sub_list in l_temp_cage_no_squares]
+    print('l_all_nos_in_cage = ', l_all_nos_in_cage)
+    s_all_nos_in_cage = set(l_all_nos_in_cage)
+    print('s_all_nos_in_cage = ', s_all_nos_in_cage)
+    #l_all_nos_in_cage_de_dup = list(s_all_nos_in_cage)
+    l_all_nos_in_cage_de_dup = [list(x) for x in s_all_nos_in_cage]
+    #sum(l_all_nos_in_cage_de_dup, [])
+    l_all_nos_in_cage_de_dup = [*l_all_nos_in_cage_de_dup[0]]
+    print('*l_all_nos_in_cage_de_dup = ', *l_all_nos_in_cage_de_dup)
+    print('l_all_nos_in_cage_de_dup = ', l_all_nos_in_cage_de_dup)
+    l_temp_horizontal = [(sub_list[1]) for sub_list in l_temp_cage_no_squares]
+    print('l_temp_horizontal = ', l_temp_horizontal)
+    #l_temp_nonet_no = l_temp_cage_no_squares_2[0]//length_of_one_square #, l_temp_cage_no_squares_2[0]//length_of_one_square
+    a_set = set(l_temp_horizontal)
+    l_a_set = list(a_set)
+    print('l_a_set = ', l_a_set)
+    print('l_a_set[0][0] = ', l_a_set[0][0])
+    print('l_a_set[0][1] = ', l_a_set[0][1])
+    start_row = l_a_set[0][0]
+    #end_row = int(l_a_set[0][0]+1)*length_of_one_square-1
+    #start_column = l_a_set[0][1]*length_of_one_square
+    #end_column = int(l_a_set[0][1]+1)*length_of_one_square-1
+    print('start_row = ', start_row)
+    #print('end_row = ', end_row)
+    #print('start_column = ', start_column)
+    #print('end_column = ', end_column)
+    l_temp_squares_in_horizontal = []
+    for l_horizontal_square in l_possibilities:
+        if l_horizontal_square[1] == start_row:
+            l_temp_squares_in_horizontal.append(l_horizontal_square)
+    print('l_temp_squares_in_horizontal = ', l_temp_squares_in_horizontal)
+    t_temp_squares_in_horizontal = [tuple(x) for x in l_temp_squares_in_horizontal]
+    print('t_temp_squares_in_horizontal = ', t_temp_squares_in_horizontal)
+    s_temp_squares_in_horizontal = set(t_temp_squares_in_horizontal)
+    t_temp_cage_no_squares = [tuple(x) for x in l_temp_cage_no_squares]
+    s_temp_cage_no_squares = set(t_temp_cage_no_squares)
+    print('s_temp_cage_no_squares = ', s_temp_cage_no_squares)
+    s_temp_squares_in_horizontal_minus_cage = s_temp_squares_in_horizontal - s_temp_cage_no_squares
+    #l_temp_squares_in_nonet_minus_cage = list(s_temp_squares_in_nonet_minus_cage)
+    l_temp_squares_in_horizontal_minus_cage = [list(x) for x in s_temp_squares_in_horizontal_minus_cage]
+    print('l_temp_squares_in_horizontal_minus_cage = ', l_temp_squares_in_horizontal_minus_cage)
+    for x_number in l_all_nos_in_cage_de_dup:
+        print('x_number1 = ', x_number)
+        for x_possibility_latest in l_possibilities_latest:
+            for x_temp_squares_in_horizontal_minus_cage in l_temp_squares_in_horizontal_minus_cage:
+                if x_temp_squares_in_horizontal_minus_cage[0] == x_possibility_latest[0]:
+                    #x_possibility_latest[5:].remove(x_number)
+                    try:
+                        #print('x_possibility_latest[5:] = ', x_possibility_latest[5:])
+                        print('x_possibility_latest.index(x_number, 6) = ', x_possibility_latest.index(x_number, 6))
+                        #x_possibility_latest[5:].index(x_number)
+                        del x_possibility_latest[x_possibility_latest.index(x_number, 6)]
+                        #x_possibility_latest.remove(x_number)
+                        print('x_temp_squares_in_horizontal_minus_cage1 = ', x_temp_squares_in_horizontal_minus_cage,
+                              'x_possibility_latest = ', x_possibility_latest)
+                    except:
+                        #print('x_number = ', x_number)
+                        print('x_temp_squares_in_horizontal_minus_cage2 = ', x_temp_squares_in_horizontal_minus_cage,
+                              'x_possibility_latest2 = ', x_possibility_latest)
+                        pass
+    print('l_possibility_latest = ', l_possibilities_latest)
+    #my_string = [[89, 111, 117, 32], [104, 97, 118, 101, 32], [109, 97, 100, 101, 32], [109, 121, 32], [115, 111, 117, 108, 46]]
+    #for outer_ndx, out in enumerate(my_string):
+    #    for inner_ndx, inner in enumerate(out):
+    #        if inner < 65:
+    #            my_string[outer_ndx][inner_ndx] = None
+    #my_string
+    #[[89, 111, 117, None], [104, 97, 118, 101, None], [109, 97, 100, 101, None], [109, 121, None], [115, 111, 117, 108, None]]
+    return l_possibilities_latest
+
+
 def pop_game(length_of_one_square, total_length):
     # saveListToFile(index_list, 'sum_no_of_squares_list')
     index_list_f = openFileToList('sum_no_of_squares_list')
@@ -366,9 +439,9 @@ def pop_game(length_of_one_square, total_length):
             print('In delete_all_values_excluding_cage_in_nonet')
             pass
 
-        #if cage_only_horizontal(cage_no_squares, l_possibilities) and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
-        #    delete_all_values_excluding_cage_in_horizontal(cage_no_squares, l_possibilities, l_possibilities_latest)
-        pass
+        if cage_only_horizontal(cage_no_squares, l_possibilities) and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
+            l_possibilities_latest = delete_all_values_excluding_cage_in_horizontal(cage_no_squares, l_possibilities, l_possibilities_latest)
+            pass
 
         #if cage_only_vertical(cage_no_squares, l_possibilities) and one_row_for_all_cage_squares(cage_no_squares, l_possibilities):
         #    delete_all_values_excluding_cage_in_vertical(cage_no_squares, l_possibilities, l_possibilities_latest)
