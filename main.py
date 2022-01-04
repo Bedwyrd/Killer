@@ -11,10 +11,10 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 import sys
-print('sys.path1 = ', sys.path)
-
+#print('sys.path1 = ', sys.path)
 import json
 from tkinter import *
+import copy
 
 # For tkinter
 #tkinter.Tcl().eval('info patchlevel')
@@ -30,6 +30,7 @@ total_length = int(value2)
 choice = input("Enter 1 for create_list.\nEnter 2 for specifying Killer game values.:\n")
 choice = int(choice)
 
+l_possibilities_latest = []
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -281,8 +282,40 @@ def delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities):
     #l_temp_squares_in_nonet_minus_cage = list(s_temp_squares_in_nonet_minus_cage)
     l_temp_squares_in_nonet_minus_cage = [list(x) for x in s_temp_squares_in_nonet_minus_cage]
     print('l_temp_squares_in_nonet_minus_cage = ', l_temp_squares_in_nonet_minus_cage)
+    l_possibilities_latest = copy.deepcopy(l_possibilities)
     for x_number in l_all_nos_in_cage_de_dup:
-        for x_possibilities in l_possibilities:
+        for x_possibility_latest in l_possibilities_latest:
+            for x_temp_squares_in_nonet_minus_cage in l_temp_squares_in_nonet_minus_cage:
+                if x_temp_squares_in_nonet_minus_cage[:] == x_possibility_latest[:]:
+                    #x_possibility_latest[5:].remove(x_number)
+                    try:
+                        print('x_possibility_latest[5:] = ', x_possibility_latest[5:])
+                        x_possibility_latest[5:].remove(x_number)
+                        print('x_temp_squares_in_nonet_minus_cage = ', x_temp_squares_in_nonet_minus_cage,
+                              'x_possibility_latest = ', x_possibility_latest)
+                    except:
+                        print('x_number = ', x_number)
+                        print('x_temp_squares_in_nonet_minus_cage2 = ', x_temp_squares_in_nonet_minus_cage,
+                              'x_possibility_latest2 = ', x_possibility_latest)
+                        pass
+
+    print('l_possibility_latest = ', l_possibilities_latest)
+
+    #my_string = [[89, 111, 117, 32], [104, 97, 118, 101, 32], [109, 97, 100, 101, 32], [109, 121, 32], [115, 111, 117, 108, 46]]
+    #for outer_ndx, out in enumerate(my_string):
+    #    for inner_ndx, inner in enumerate(out):
+    #        if inner < 65:
+    #            my_string[outer_ndx][inner_ndx] = None
+    #my_string
+    #[[89, 111, 117, None], [104, 97, 118, 101, None], [109, 97, 100, 101, None], [109, 121, None], [115, 111, 117, 108, None]]
+
+    #l_possibilities_new = [print('x[0:5] = ', x[0:5]) for x in l_possibilities if x[0:5] in l_temp_squares_in_nonet_minus_cage[0:5]]
+    # Following is meant to be intersection code
+    #l_possibilities_new = [[x for x in sublist if x in l_temp_squares_in_nonet_minus_cage] for sublist in l_possibilities]
+    #l_possibilities_new = [list(filter(lambda x: x in l_possibilities, sublist)) for sublist in l_temp_squares_in_nonet_minus_cage]
+    #print(type(l_temp_squares_in_nonet_minus_cage))
+    #print(type(l_possibilities))
+    #print('l_possibilities_new = ', l_possibilities_new)
 
 
 def pop_game(length_of_one_square, total_length):
