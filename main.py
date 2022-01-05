@@ -200,11 +200,11 @@ def display_grid(l_possibilities):
         if n_grid[1] == prev_record[1] and n_grid[2] == prev_record[2]:
             cum_record = str(cum_record) + '\n' + str(n_grid)
             myLabel = Label(root, text=cum_record)
-            print('cum_record = ', cum_record)
+            #print('cum_record = ', cum_record)
         else:
             cum_record = str(n_grid)
             myLabel = Label(root, text=cum_record)
-            print('cum_record = ', cum_record)
+            #print('cum_record = ', cum_record)
 
         myLabel.grid(row=n_grid[1], column=n_grid[2])
         prev_record = n_grid
@@ -221,8 +221,8 @@ def square_no_records(a_square, l_possibilities):
     l_temp_square_recs = []
     print('a_square2 = ', a_square)
     for l_possibility in l_possibilities:
-        print('[l_possibility[1],l_possibility[2]] = ', [l_possibility[1], l_possibility[2]])
-        print('tuple(l_possibility[1],l_possibility[2]) = ', tuple([l_possibility[1], l_possibility[2]]))
+        #print('[l_possibility[1],l_possibility[2]] = ', [l_possibility[1], l_possibility[2]])
+        #print('tuple(l_possibility[1],l_possibility[2]) = ', tuple([l_possibility[1], l_possibility[2]]))
         if tuple([l_possibility[1], l_possibility[2]]) == a_square:
             l_temp_square_recs.append(l_possibility)
     return l_temp_square_recs
@@ -249,15 +249,15 @@ def one_row_for_all_cage_squares(cage_no_squares, l_possibilities, l_possibiliti
         for x_temp_cage_no_squares in l_temp_cage_no_squares:
             if x_temp_cage_no_squares[0] == x_possibility_latest[0] and len(x_possibility_latest) >= 7:
                 try:
-                    print('x_temp_cage_no_squares (>=7) = ', x_temp_cage_no_squares)
+                    print('x_temp_cage_no_squares (>=7) orfacs = ', x_temp_cage_no_squares)
                     l_temp_cage_no_squares2.append(x_temp_cage_no_squares)
                 except:
                     # print('x_number = ', x_number)
-                    print('x_temp_cage_no_squares (<7) in exception = ', x_temp_cage_no_squares)
+                    print('x_temp_cage_no_squares (<7) in exception orfacs = ', x_temp_cage_no_squares)
     l_temp_square_nos = [(sub_list[1], sub_list[2]) for sub_list in l_temp_cage_no_squares2]
-    print('l_temp_square_nos = ', l_temp_square_nos)
+    print('l_temp_square_nos orfacs = ', l_temp_square_nos)
     a_set = set(l_temp_square_nos)
-    print('a_set = ', a_set)
+    print('a_set orfacs = ', a_set)
     if len(a_set) == len(l_temp_square_nos):
         print('True')
         return True
@@ -268,21 +268,51 @@ def one_row_for_all_cage_squares(cage_no_squares, l_possibilities, l_possibiliti
 def one_row_for_square(a_square, l_possibilities, l_possibilities_latest):
     l_temp_square_recs2 =[]
     l_temp_square_recs = square_no_records(a_square, l_possibilities)
+    print('l_temp_square_recs orfq = ', l_temp_square_recs)
     #l_temp_cage_no_squares = [x for x in l_temp_cage_no_squares if len(x) >= 7]
     for x_possibility_latest in l_possibilities_latest:
         for x_temp_square_recs in l_temp_square_recs:
+            #print('x_temp_square_recs orfq = ', x_temp_square_recs)
             if x_temp_square_recs[0] == x_possibility_latest[0] and len(x_possibility_latest) >= 7:
                 try:
-                    print('x_temp_square_recs (>=7) = ', x_temp_square_recs)
+                    print('x_temp_square_recs (>=7) orfq = ', x_temp_square_recs)
                     l_temp_square_recs2.append(x_temp_square_recs)
                 except:
                     # print('x_number = ', x_number)
-                    print('x_temp_square_recs (<7) in exception = ', x_temp_square_recs)
+                    print('x_temp_square_recs (<7) in exception orfq = ', x_temp_square_recs)
     l_temp_square_nos = [(sub_list[1], sub_list[2]) for sub_list in l_temp_square_recs2]
-    print('l_temp_square_nos = ', l_temp_square_nos)
+    print('l_temp_square_nos orfq = ', l_temp_square_nos)
     a_set = set(l_temp_square_nos)
-    print('a_set = ', a_set)
+    print('a_set orfq = ', a_set)
     if len(a_set) == len(l_temp_square_nos):
+        print('True')
+        return True
+    else:
+        print('False')
+        return False
+
+def only_one_value_left(a_square, l_possibilities, l_possibilities_latest):
+    l_temp_square_recs2 =[]
+    l_temp_square_recs = square_no_records(a_square, l_possibilities)
+    print('l_temp_square_recs oovl = ', l_temp_square_recs)
+    #l_temp_cage_no_squares = [x for x in l_temp_cage_no_squares if len(x) >= 7]
+    for x_possibility_latest in l_possibilities_latest:
+        for x_temp_square_recs in l_temp_square_recs:
+            #print('x_temp_square_recs oovl = ', x_temp_square_recs)
+            if x_temp_square_recs[0] == x_possibility_latest[0] and len(x_possibility_latest) == 7:
+                try:
+                    print('x_temp_square_recs (>=7) oovl = ', x_temp_square_recs)
+                    l_temp_square_recs2.append(x_temp_square_recs)
+                except:
+                    # print('x_number = ', x_number)
+                    print('x_temp_square_recs (<7) in exception oovl = ', x_temp_square_recs)
+    l_temp_square_nos = [(sub_list[1], sub_list[2]) for sub_list in l_temp_square_recs2]
+    print('l_temp_square_nos oovl = ', l_temp_square_nos)
+    a_set = set(l_temp_square_nos)
+    print('a_set oovl = ', a_set)
+    print('len(a_set) = ', len(a_set))
+    print('len(l_temp_square_nos) = ', len(l_temp_square_nos))
+    if len(a_set) == len(l_temp_square_nos) and len(l_temp_square_nos) > 0:
         print('True')
         return True
     else:
@@ -369,10 +399,12 @@ def delete_all_values_excluding_cage_in_nonet(cage_no_squares, l_possibilities, 
                     try:
                         #print('x_possibility_latest[5:] = ', x_possibility_latest[5:])
                         print('x_possibility_latest.index(x_number, 6) = ', x_possibility_latest.index(x_number, 6))
+                        print('x_temp_squares_in_nonet_minus_cage1 after = ', x_temp_squares_in_nonet_minus_cage,
+                              'x_possibility_latest = ', x_possibility_latest)
                         #x_possibility_latest[5:].index(x_number)
                         del x_possibility_latest[x_possibility_latest.index(x_number, 6)]
                         #x_possibility_latest.remove(x_number)
-                        print('x_temp_squares_in_nonet_minus_cage1 = ', x_temp_squares_in_nonet_minus_cage,
+                        print('x_temp_squares_in_nonet_minus_cage1 before = ', x_temp_squares_in_nonet_minus_cage,
                               'x_possibility_latest = ', x_possibility_latest)
                     except:
                         #print('x_number = ', x_number)
@@ -442,14 +474,14 @@ def delete_all_values_excluding_square_in_nonet(a_square, l_possibilities, l_pos
                 if x_temp_squares_in_nonet_minus_square[0] == x_possibility_latest[0]:
                     try:
                         print('x_possibility_latest.index(x_number, 6)3 = ', x_possibility_latest.index(x_number, 6))
-                        print('x_temp_squares_in_nonet_minus_square3 before = ', x_temp_squares_in_nonet_minus_square,
+                        print('x_temp_squares_in_nonet_minus_square3 square before = ', x_temp_squares_in_nonet_minus_square,
                               'x_possibility_latest = ', x_possibility_latest)
                         del x_possibility_latest[x_possibility_latest.index(x_number, 6)]
                         #x_possibility_latest.remove(x_number)
-                        print('x_temp_squares_in_nonet_minus_square3 after = ', x_temp_squares_in_nonet_minus_square,
+                        print('x_temp_squares_in_nonet_minus_square3 square after = ', x_temp_squares_in_nonet_minus_square,
                               'x_possibility_latest = ', x_possibility_latest)
                     except:
-                        print('x_temp_squares_in_nonet_minus_square4 = ', x_temp_squares_in_nonet_minus_square,
+                        print('x_temp_squares_in_nonet_minus_square4 square = ', x_temp_squares_in_nonet_minus_square,
                               'x_possibility_latest3 except= ', x_possibility_latest)
                         pass
     print('l_possibility_latest = ', l_possibilities_latest)
@@ -501,10 +533,12 @@ def delete_all_values_excluding_cage_in_horizontal(cage_no_squares, l_possibilit
                     try:
                         #print('x_possibility_latest[5:] = ', x_possibility_latest[5:])
                         print('x_possibility_latest.index(x_number, 6) = ', x_possibility_latest.index(x_number, 6))
+                        print('x_temp_squares_in_horizontal_minus_cage1 horizontal before = ', x_temp_squares_in_horizontal_minus_cage,
+                              'x_possibility_latest = ', x_possibility_latest)
                         #x_possibility_latest[5:].index(x_number)
                         del x_possibility_latest[x_possibility_latest.index(x_number, 6)]
                         #x_possibility_latest.remove(x_number)
-                        print('x_temp_squares_in_horizontal_minus_cage1 = ', x_temp_squares_in_horizontal_minus_cage,
+                        print('x_temp_squares_in_horizontal_minus_cage1 horizontal after = ', x_temp_squares_in_horizontal_minus_cage,
                               'x_possibility_latest = ', x_possibility_latest)
                     except:
                         #print('x_number = ', x_number)
@@ -564,10 +598,12 @@ def delete_all_values_excluding_cage_in_vertical(cage_no_squares, l_possibilitie
                     try:
                         #print('x_possibility_latest[5:] = ', x_possibility_latest[5:])
                         print('x_possibility_latest.index(x_number, 6) = ', x_possibility_latest.index(x_number, 6))
+                        print('x_temp_squares_in_vertical_minus_cage1 vertical before = ', x_temp_squares_in_vertical_minus_cage,
+                              'x_possibility_latest = ', x_possibility_latest)
                         #x_possibility_latest[5:].index(x_number)
                         del x_possibility_latest[x_possibility_latest.index(x_number, 6)]
                         #x_possibility_latest.remove(x_number)
-                        print('x_temp_squares_in_vertical_minus_cage1 = ', x_temp_squares_in_vertical_minus_cage,
+                        print('x_temp_squares_in_vertical_minus_cage1 vertical after = ', x_temp_squares_in_vertical_minus_cage,
                               'x_possibility_latest = ', x_possibility_latest)
                     except:
                         #print('x_number = ', x_number)
@@ -633,8 +669,10 @@ def pop_game(length_of_one_square, total_length):
     l_square_nos.sort(key=lambda i: (i[0], i[1]))
     print('l_square_nos = ', l_square_nos)
     for a_square in l_square_nos:
-        if one_row_for_square(a_square, l_possibilities, l_possibilities_latest):
-            delete_all_values_excluding_square_in_nonet(a_square, l_possibilities, l_possibilities_latest)
+        if one_row_for_square(a_square, l_possibilities, l_possibilities_latest) and only_one_value_left(a_square, l_possibilities, l_possibilities_latest):
+            print('a_square one_row_for_square before = ', a_square)
+            #delete_all_values_excluding_square_in_nonet(a_square, l_possibilities, l_possibilities_latest)
+            print('a_square one_row_for_square after = ', a_square)
             #if one_value_in_square[1,2] and one_row_for_this_square[1,2]:
             #    delete_all_values_excluding_square_in_nonet(all_squares[1,2], l_possibilities_latest)
             #    delete_all_values_excluding_square_in_horizontal(all_squares[1, 2], l_possibilities_latest)
